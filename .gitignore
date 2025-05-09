@@ -1,0 +1,11 @@
+# .gitignore para proyectos Java (Maven o IDEs)
+target/
+bin/
+build/
+*.class
+*.log
+*.iml
+.idea/
+*.swp
+.DS_Store
+nbproject/private/

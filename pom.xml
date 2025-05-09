@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>dam.di</groupId>
+    <artifactId>enoteca</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>23</maven.compiler.release>
+        <exec.mainClass>dam.di.enoteca.Enoteca</exec.mainClass>
+    </properties>
+    
+    <dependencies>
+        <!-- JUnit 5 API (para escribir tests) -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit 5 Engine (para ejecutar tests) -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit Platform Launcher (necesario para Surefire en JDK recientes como 23) -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.10.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>    
+    
+    
+    <build>
+        <finalName>GestorEnoteca</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>dam.di.enoteca.Enoteca</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                <execution>
+                    <id>make-assembly</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Plugin para compilar correctamente -->
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                                       
+                    <archive>
+                        <manifest>
+                            <mainClass>dam.di.enoteca.Enoteca</mainClass>  <!-- Reemplazar con tu clase principal -->
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <release>23</release> <!-- Garantiza compatibilidad JDK 21+ -->
+                </configuration>
+            </plugin>
+
+            <!-- Plugin para ejecutar tests (JUnit 5) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <useModulePath>false</useModulePath> <!-- Necesario en JDK nuevos -->
+                </configuration>
+            </plugin>
+
+            <!-- Plugin para medir la cobertura de código con JaCoCo -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.13</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

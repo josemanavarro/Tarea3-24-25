@@ -1,0 +1,158 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package dam.di.enoteca.vista;
+
+import dam.di.enoteca.controlador.ControladorBotellas;
+import dam.di.enoteca.controlador.ControladorClientes;
+import dam.di.enoteca.controlador.ControladorPedidos;
+import dam.di.enoteca.modelo.ModeloBotellas;
+import dam.di.enoteca.modelo.ModeloClientes;
+import dam.di.enoteca.modelo.dto.Botella;
+import dam.di.enoteca.modelo.dto.Cliente;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
+
+/**
+ *
+ * @author jose
+ */
+public class NuevoPedidoJDialog extends javax.swing.JDialog {
+
+    private JComboBox<String> comboClientes;
+    private JList<String> listaBotellas;
+    private ControladorPedidos controladorPedidos;
+    private ControladorClientes controladorClientes;
+    private ControladorBotellas controladorBotellas;
+    
+    /**
+     * Creates new form NuevoPedidoJDialog
+     * @param parent
+     * @param modal
+     */
+    public NuevoPedidoJDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+    }
+
+    /**
+     * 
+     * @param parent
+     * @param b
+     * @param controladorPedidos 
+     */
+    NuevoPedidoJDialog(java.awt.Frame parent, boolean modal, ControladorPedidos cP, ControladorClientes cC, ControladorBotellas cB) {
+        super(parent, modal);
+        this.controladorPedidos = cP;
+        controladorClientes = cC;
+        controladorBotellas = cB;
+
+        // Extraemos también los otros controladores
+        this.controladorClientes = controladorPedidos != null ? 
+                                   new ControladorClientes(new ModeloClientes()) : null;
+        this.controladorBotellas = controladorPedidos != null ?
+                                   new ControladorBotellas(new ModeloBotellas()) : null;
+
+        setSize(450, 350);
+        setLocationRelativeTo(parent);
+        setLayout(new BorderLayout());
+
+        comboClientes = new JComboBox<>();
+        for (Cliente c : controladorClientes.listarClientes()) {
+            comboClientes.addItem(c.getCorreo());
+        }
+
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+        for (Botella b : controladorBotellas.listarBotellas()) {
+            modeloLista.addElement(b.toString());
+        }
+
+        listaBotellas = new JList<>(modeloLista);
+        listaBotellas.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        JPanel panelCentro = new JPanel(new BorderLayout(10, 10));
+        panelCentro.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelCentro.add(new JLabel("Cliente:"), BorderLayout.NORTH);
+        panelCentro.add(comboClientes, BorderLayout.CENTER);
+
+        JPanel panelLista = new JPanel(new BorderLayout());
+        panelLista.add(new JLabel("Botellas:"), BorderLayout.NORTH);
+        panelLista.add(new JScrollPane(listaBotellas), BorderLayout.CENTER);
+
+        JPanel panelContenido = new JPanel(new GridLayout(2, 1));
+        panelContenido.add(panelCentro);
+        panelContenido.add(panelLista);
+
+        JButton btnCrear = new JButton("Crear Pedido");
+        JButton btnCancelar = new JButton("Cancelar");
+
+        JPanel panelBotones = new JPanel();
+        panelBotones.add(btnCrear);
+        panelBotones.add(btnCancelar);
+
+        add(panelContenido, BorderLayout.CENTER);
+        add(panelBotones, BorderLayout.SOUTH);
+
+        btnCrear.addActionListener(e -> {
+            String correo = (String) comboClientes.getSelectedItem();
+            Cliente cliente = controladorClientes.buscarClientePorCorreo(correo).orElse(null);
+            if (cliente == null) return;
+
+            List<Botella> seleccionadas = new ArrayList<>();
+            List<Botella> todas = controladorBotellas.listarBotellas();
+
+            for (int idx : listaBotellas.getSelectedIndices()) {
+                seleccionadas.add(todas.get(idx));
+            }
+
+            if (!seleccionadas.isEmpty()) {
+                controladorPedidos.crearPedido(cliente, seleccionadas);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecciona al menos una botella.");
+            }
+        });
+
+        btnCancelar.addActionListener(e -> dispose());
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+}
