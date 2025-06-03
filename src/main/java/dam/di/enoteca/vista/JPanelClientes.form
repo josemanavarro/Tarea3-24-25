@@ -67,7 +67,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonBorrarCliente">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Borarr Cliente"/>
+          <Property name="text" type="java.lang.String" value="Borrar Cliente"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBorrarClienteActionPerformed"/>
