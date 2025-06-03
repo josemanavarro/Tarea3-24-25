@@ -33,8 +33,10 @@ public class EnotecaTest {
         assertEquals(1, mc.obtenerClientes().size());
         Exception exception = assertThrows(Exception.class, () -> {
             mc.eliminarCliente(null);
-        });        
+        });
         assertEquals("EL correo a eliminar no puede ser nulo ni vacío.", exception.getMessage());
+        // After a failed deletion attempt the list should remain unchanged
+        assertEquals(1, mc.obtenerClientes().size());
     }
 
     @Test
