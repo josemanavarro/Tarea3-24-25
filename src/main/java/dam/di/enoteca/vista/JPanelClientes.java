@@ -8,9 +8,18 @@ import dam.di.enoteca.controlador.ControladorClientes;
 import dam.di.enoteca.modelo.dto.Cliente;
 import java.awt.Frame;
 import java.util.List;
+import java.io.InputStream;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  *
@@ -57,6 +66,7 @@ public class JPanelClientes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
         jButtonAnadirCliente = new javax.swing.JButton();
+        jButtonImprimir = new javax.swing.JButton();
         jButtonBorrarCliente = new javax.swing.JButton();
 
         tablaClientes.setModel(this.modeloTabla);
@@ -66,6 +76,13 @@ public class JPanelClientes extends javax.swing.JPanel {
         jButtonAnadirCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAnadirClienteActionPerformed(evt);
+            }
+        });
+
+        jButtonImprimir.setText("Imprimir listado");
+        jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImprimirActionPerformed(evt);
             }
         });
 
@@ -84,6 +101,8 @@ public class JPanelClientes extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jButtonAnadirCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonImprimir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(jButtonBorrarCliente)
                 .addGap(58, 58, 58))
@@ -95,6 +114,7 @@ public class JPanelClientes extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnadirCliente)
+                    .addComponent(jButtonImprimir)
                     .addComponent(jButtonBorrarCliente))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
@@ -149,9 +169,24 @@ public class JPanelClientes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonBorrarClienteActionPerformed
 
+    private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        try {
+            List<Cliente> datos = controladorClientes.listarClientes();
+            JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(datos);
+            InputStream is = getClass().getResourceAsStream("/clientes.jrxml");
+            JasperReport reporte = JasperCompileManager.compileReport(is);
+            JasperPrint print = JasperFillManager.fillReport(reporte, new HashMap<>(), ds);
+            JasperExportManager.exportReportToPdfFile(print, "clientes.pdf");
+            JOptionPane.showMessageDialog(this, "Informe generado en clientes.pdf");
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(this, "Error generando informe: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonImprimirActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnadirCliente;
+    private javax.swing.JButton jButtonImprimir;
     private javax.swing.JButton jButtonBorrarCliente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaClientes;
