@@ -36,5 +36,15 @@ public class EnotecaTest {
         });        
         assertEquals("EL correo a eliminar no puede ser nulo ni vacío.", exception.getMessage());
     }
+
+    @Test
+    void nuevoClienteUnSuccessfully(){
+        ModeloClientes mc = new ModeloClientes();
+        Cliente invalido = new Cliente("", "", null, "");
+        Exception exception = assertThrows(Exception.class, () -> {
+            mc.agregarCliente(invalido);
+        });
+        assertEquals("El cliente no puede ser nulo ni vacío.", exception.getMessage());
+    }
     
 }
