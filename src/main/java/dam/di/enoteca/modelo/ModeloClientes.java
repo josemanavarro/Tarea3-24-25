@@ -20,12 +20,16 @@ public class ModeloClientes {
     }
 
     public void agregarCliente(Cliente cliente) {
-        if (cliente == null || cliente.toString().trim().isEmpty()) {
+        if (cliente == null
+                || cliente.getNombre() == null || cliente.getNombre().trim().isEmpty()
+                || cliente.getDireccion() == null || cliente.getDireccion().trim().isEmpty()
+                || cliente.getCorreo() == null || cliente.getCorreo().trim().isEmpty()
+                || cliente.getTelefono() == null || cliente.getTelefono().trim().isEmpty()) {
             throw new IllegalArgumentException("El cliente no puede ser nulo ni vacío.");
         } else {
             clientes.add(cliente);
-        }        
-    }        
+        }
+    }
         
     public List<Cliente> obtenerClientes() {
         return clientes;
