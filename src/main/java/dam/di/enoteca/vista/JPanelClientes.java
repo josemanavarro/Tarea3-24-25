@@ -69,7 +69,7 @@ public class JPanelClientes extends javax.swing.JPanel {
             }
         });
 
-        jButtonBorrarCliente.setText("Borarr Cliente");
+        jButtonBorrarCliente.setText("Borrar Cliente");
         jButtonBorrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBorrarClienteActionPerformed(evt);
