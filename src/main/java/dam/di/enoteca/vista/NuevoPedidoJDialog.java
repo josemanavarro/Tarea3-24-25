@@ -51,7 +51,7 @@ public class NuevoPedidoJDialog extends javax.swing.JDialog {
     /**
      * 
      * @param parent
-     * @param b
+     * @param modal
      * @param controladorPedidos 
      */
     NuevoPedidoJDialog(java.awt.Frame parent, boolean modal, ControladorPedidos cP, ControladorClientes cC, ControladorBotellas cB) {
