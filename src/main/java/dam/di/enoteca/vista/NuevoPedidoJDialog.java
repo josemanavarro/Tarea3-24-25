@@ -7,8 +7,6 @@ package dam.di.enoteca.vista;
 import dam.di.enoteca.controlador.ControladorBotellas;
 import dam.di.enoteca.controlador.ControladorClientes;
 import dam.di.enoteca.controlador.ControladorPedidos;
-import dam.di.enoteca.modelo.ModeloBotellas;
-import dam.di.enoteca.modelo.ModeloClientes;
 import dam.di.enoteca.modelo.dto.Botella;
 import dam.di.enoteca.modelo.dto.Cliente;
 import java.awt.BorderLayout;
@@ -54,17 +52,14 @@ public class NuevoPedidoJDialog extends javax.swing.JDialog {
      * @param b
      * @param controladorPedidos 
      */
-    NuevoPedidoJDialog(java.awt.Frame parent, boolean modal, ControladorPedidos cP, ControladorClientes cC, ControladorBotellas cB) {
+    NuevoPedidoJDialog(java.awt.Frame parent, boolean modal,
+                       ControladorPedidos cP,
+                       ControladorClientes cC,
+                       ControladorBotellas cB) {
         super(parent, modal);
         this.controladorPedidos = cP;
-        controladorClientes = cC;
-        controladorBotellas = cB;
-
-        // Extraemos también los otros controladores
-        this.controladorClientes = controladorPedidos != null ? 
-                                   new ControladorClientes(new ModeloClientes()) : null;
-        this.controladorBotellas = controladorPedidos != null ?
-                                   new ControladorBotellas(new ModeloBotellas()) : null;
+        this.controladorClientes = cC;
+        this.controladorBotellas = cB;
 
         setSize(450, 350);
         setLocationRelativeTo(parent);
