@@ -8,7 +8,7 @@
     <title>
         <band height="40">
             <staticText>
-                <reportElement x="0" y="0" width="555" height="30" uuid="title-1"/>
+                <reportElement x="0" y="0" width="555" height="30" uuid="1939c148-c817-4b66-9e87-1f030cb0b20a"/>
                 <textElement textAlignment="Center">
                     <font size="18" isBold="true"/>
                 </textElement>
@@ -19,28 +19,28 @@
     <columnHeader>
         <band height="20">
             <staticText>
-                <reportElement x="0" y="0" width="130" height="20" uuid="ch-1"/>
+                <reportElement x="0" y="0" width="130" height="20" uuid="653dda14-f7c5-4ffa-b0b9-4d5af5409ec4"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Nombre]]></text>
             </staticText>
             <staticText>
-                <reportElement x="130" y="0" width="150" height="20" uuid="ch-2"/>
+                <reportElement x="130" y="0" width="150" height="20" uuid="61bc2e4a-cf70-414c-9d46-3794094d304f"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Dirección]]></text>
             </staticText>
             <staticText>
-                <reportElement x="280" y="0" width="150" height="20" uuid="ch-3"/>
+                <reportElement x="280" y="0" width="150" height="20" uuid="de1b2d35-8d3e-46f0-a6c7-b2fc4b5913cf"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Correo]]></text>
             </staticText>
             <staticText>
-                <reportElement x="430" y="0" width="125" height="20" uuid="ch-4"/>
+                <reportElement x="430" y="0" width="125" height="20" uuid="79105997-74db-4ef3-ab76-8968590c2d78"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
@@ -51,19 +51,19 @@
     <detail>
         <band height="20">
             <textField>
-                <reportElement x="0" y="0" width="130" height="20" uuid="d1"/>
+                <reportElement x="0" y="0" width="130" height="20" uuid="ddf257de-9d25-4c16-b0a8-0f85a5995a81"/>
                 <textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="130" y="0" width="150" height="20" uuid="d2"/>
+                <reportElement x="130" y="0" width="150" height="20" uuid="b6915824-a6d0-4057-aece-84ce905ef0f7"/>
                 <textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="280" y="0" width="150" height="20" uuid="d3"/>
+                <reportElement x="280" y="0" width="150" height="20" uuid="c43407ee-732c-4206-9fcc-bedabab5f4f7"/>
                 <textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="430" y="0" width="125" height="20" uuid="d4"/>
+                <reportElement x="430" y="0" width="125" height="20" uuid="a55a7d15-0343-4766-b154-04acee8eb54e"/>
                 <textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
             </textField>
         </band>
